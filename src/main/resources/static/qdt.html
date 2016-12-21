@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>胡丽婷专用打卡网</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        function startWork() {
+            $.ajax({
+                url: "/check/in",
+                type: "get",
+                success: function (data) {
+                    $("#result").html(data);
+                }
+            });
+        }
+
+        function offWork() {
+            $.ajax({
+                url: "/check/out",
+                type: "get",
+                success: function (data) {
+                    $("#result").html(data);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<p style="text-align: center;width: 100%">
+    <button style="width: 50%;height: 80px;font-size: large" onclick="startWork()">上班</button>
+</p>
+<p style="text-align: center;width: 100%">
+    <button style="width: 50%;height: 80px;font-size: large" onclick="offWork()">下班</button>
+</p>
+<div style="text-align: center;width: 100%" id="result"></div>
+</body>
+</html>
