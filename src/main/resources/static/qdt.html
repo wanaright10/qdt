@@ -5,9 +5,13 @@
     <title>自动化测试</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
-        function startWork() {
+        function startWork(callNew) {
+            var url = '/check/in';
+            if (callNew) {
+                url = (url + '?callNew=true');
+            }
             $.ajax({
-                url: "/check/in",
+                url: url,
                 type: "get",
                 success: function (data) {
                     $("#result").html(data);
@@ -15,9 +19,13 @@
             });
         }
 
-        function offWork() {
+        function offWork(callNew) {
+            var url = "/check/out";
+            if(callNew){
+                url = (url + '?callNew=true');
+            }
             $.ajax({
-                url: "/check/out",
+                url: url,
                 type: "get",
                 success: function (data) {
                     $("#result").html(data);
@@ -28,11 +36,19 @@
 </head>
 <body>
 <p style="text-align: center;width: 100%">
-    <button style="width: 50%;height: 80px;font-size: large" onclick="startWork()">开始</button>
+    <button style="width: 50%;height: 80px;font-size: large" onclick="startWork()">开始( 老 )</button>
 </p>
 <p style="text-align: center;width: 100%">
-    <button style="width: 50%;height: 80px;font-size: large" onclick="offWork()">结束</button>
+    <button style="width: 50%;height: 80px;font-size: large" onclick="offWork()">结束( 老 )</button>
 </p>
+<hr/>
+<p style="text-align: center;width: 100%">
+    <button style="width: 50%;height: 80px;font-size: large" onclick="startWork(true)">开始( 新 )</button>
+</p>
+<p style="text-align: center;width: 100%">
+    <button style="width: 50%;height: 80px;font-size: large" onclick="offWork(true)">结束( 新 )</button>
+</p>
+<hr/>
 <div style="text-align: center;width: 100%" id="result"></div>
 </body>
 </html>
