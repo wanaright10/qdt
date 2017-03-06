@@ -19,21 +19,39 @@ public class MainResource {
     private static final String HOST = "http://service.qdtsoft.com";
 
     @RequestMapping(value = "/out", method = RequestMethod.GET)
-    public HttpEntity<String> checkOut(@RequestParam(required = false, defaultValue = "false") Boolean callNew) {
-        if (callNew) {
-            return checkOutNew();
-        } else {
-            return checkOutOld();
+    public HttpEntity<String> checkOut(@RequestParam(required = false, defaultValue = "false") Boolean callNew,
+                                       @RequestParam(required = false, defaultValue = "false") Boolean test) {
+        try {
+            if (!test) {
+                if (callNew) {
+                    return checkOutNew();
+                } else {
+                    return checkOutOld();
+                }
+            } else {
+                return test();
+            }
+        } catch (Exception e) {
+            return new HttpEntity<>(e.getMessage());
         }
     }
 
 
     @RequestMapping(value = "/in", method = RequestMethod.GET)
-    public HttpEntity<String> checkIn(@RequestParam(required = false, defaultValue = "false") Boolean callNew) {
-        if (callNew) {
-            return checkInNew();
-        } else {
-            return checkInOld();
+    public HttpEntity<String> checkIn(@RequestParam(required = false, defaultValue = "false") Boolean callNew,
+                                      @RequestParam(required = false, defaultValue = "false") Boolean test) {
+        try {
+            if (!test) {
+                if (callNew) {
+                    return checkInNew();
+                } else {
+                    return checkInOld();
+                }
+            } else {
+                return test();
+            }
+        } catch (Exception e) {
+            return new HttpEntity<>(e.getMessage());
         }
     }
 
@@ -148,6 +166,16 @@ public class MainResource {
                         "}")
                 .body();
 
+        return new HttpEntity<>(result);
+    }
+
+    private HttpEntity<String> test() {
+        Pair<String, String> randomAndToken = Util.getAPIRandomAndToken();
+        String address = Util.getRandomAddress(true);
+        Pair<String, String> location = Util.getLocation(address);
+
+
+        String result = "{'randomAndToken':" + randomAndToken + ",'address':" + address + ",'location':" + location + "}";
         return new HttpEntity<>(result);
     }
 }

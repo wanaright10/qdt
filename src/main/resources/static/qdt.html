@@ -6,9 +6,13 @@
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
         function startWork(callNew) {
-            var url = '/check/in';
+            var test = $('#test').is(':checked');
+            var url = '/check/in?';
             if (callNew) {
-                url = (url + '?callNew=true');
+                url = (url + 'callNew=true&');
+            }
+            if (test) {
+                url = (url + 'test=true');
             }
             $.ajax({
                 url: url,
@@ -21,7 +25,7 @@
 
         function offWork(callNew) {
             var url = "/check/out";
-            if(callNew){
+            if (callNew) {
                 url = (url + '?callNew=true');
             }
             $.ajax({
@@ -35,6 +39,9 @@
     </script>
 </head>
 <body>
+<span style="text-align: center;">
+    <div><h1>测试</h1><input type="checkbox" id="test"/></div><br/>
+</span>
 <p style="text-align: center;width: 100%">
     <button style="width: 50%;height: 80px;font-size: large" onclick="startWork()">开始( 老 )</button>
 </p>
