@@ -1,7 +1,6 @@
 package dong.wang;
 
 import com.github.kevinsawicki.http.HttpRequest;
-import javafx.util.Pair;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
