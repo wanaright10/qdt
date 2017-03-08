@@ -5,13 +5,9 @@
     <title>自动化测试</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
-        function startWork(callNew) {
-            var test = $('#test').is(':checked');
+        function startWork() {
             var url = '/check/in?';
-            if (callNew) {
-                url = (url + 'callNew=true&');
-            }
-            if (test) {
+            if ($('#test').is(':checked')) {
                 url = (url + 'test=true');
             }
             $.ajax({
@@ -23,10 +19,10 @@
             });
         }
 
-        function offWork(callNew) {
-            var url = "/check/out";
-            if (callNew) {
-                url = (url + '?callNew=true');
+        function offWork() {
+            var url = "/check/out?";
+            if ($('#test').is(':checked')) {
+                url = (url + 'test=true');
             }
             $.ajax({
                 url: url,
@@ -42,18 +38,12 @@
 <span style="text-align: center;">
     <div><h1>测试</h1><input type="checkbox" id="test"/></div><br/>
 </span>
-<p style="text-align: center;width: 100%">
-    <button style="width: 50%;height: 80px;font-size: large" onclick="startWork()">开始( 老 )</button>
-</p>
-<p style="text-align: center;width: 100%">
-    <button style="width: 50%;height: 80px;font-size: large" onclick="offWork()">结束( 老 )</button>
-</p>
 <hr/>
 <p style="text-align: center;width: 100%">
-    <button style="width: 50%;height: 80px;font-size: large" onclick="startWork(true)">开始( 新 )</button>
+    <button style="width: 50%;height: 80px;font-size: large" onclick="startWork()">开始</button>
 </p>
 <p style="text-align: center;width: 100%">
-    <button style="width: 50%;height: 80px;font-size: large" onclick="offWork(true)">结束( 新 )</button>
+    <button style="width: 50%;height: 80px;font-size: large" onclick="offWork()">结束</button>
 </p>
 <hr/>
 <div style="text-align: center;width: 100%" id="result"></div>

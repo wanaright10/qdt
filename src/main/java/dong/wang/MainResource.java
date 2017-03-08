@@ -18,15 +18,10 @@ public class MainResource {
     private static final String HOST = "http://service.qdtsoft.com";
 
     @RequestMapping(value = "/out", method = RequestMethod.GET)
-    public HttpEntity<String> checkOut(@RequestParam(required = false, defaultValue = "false") Boolean callNew,
-                                       @RequestParam(required = false, defaultValue = "false") Boolean test) {
+    public HttpEntity<String> checkOut(@RequestParam(required = false, defaultValue = "false") Boolean test) {
         try {
             if (!test) {
-                if (callNew) {
-                    return checkOutNew();
-                } else {
-                    return checkOutOld();
-                }
+                return checkOutNew();
             } else {
                 return test();
             }
@@ -37,15 +32,10 @@ public class MainResource {
 
 
     @RequestMapping(value = "/in", method = RequestMethod.GET)
-    public HttpEntity<String> checkIn(@RequestParam(required = false, defaultValue = "false") Boolean callNew,
-                                      @RequestParam(required = false, defaultValue = "false") Boolean test) {
+    public HttpEntity<String> checkIn(@RequestParam(required = false, defaultValue = "false") Boolean test) {
         try {
             if (!test) {
-                if (callNew) {
-                    return checkInNew();
-                } else {
-                    return checkInOld();
-                }
+                return checkInNew();
             } else {
                 return test();
             }
@@ -54,64 +44,12 @@ public class MainResource {
         }
     }
 
-    private HttpEntity<String> checkOutOld() {
-        int precision = new SecureRandom().nextInt(30) + 1;
-        int distance = new SecureRandom().nextInt(250) + 1;
-        String address = Util.getRandomAddress(false) + " (精确到" + precision + ".00米) 距离考勤点" + distance + "米";
-
-        String result = HttpRequest.post(HOST + "/AttendanceService/AttendanceCheckOut")
-                .headers(Util.getHeaders())
-                .send("{\n" +
-                        "\t\"attendanceCheckOutInputValue\": {\n" +
-                        "\t\t\"Address\": \"" + address + "\",\n" +
-                        "\t\t\"AttendancePointAddressID\": " + attendancePointAddressID + ",\n" +
-                        "\t\t\"Description\": \"\",\n" +
-                        "\t\t\"Distance\": 1,\n" +
-                        "\t\t\"Latitude\": 0,\n" +
-                        "\t\t\"Longtitude\": 0,\n" +
-                        "\t\t\"Number\": 1,\n" +
-                        "\t\t\"CompanyID\": " + companyID + ",\n" +
-                        "\t\t\"EmployeeID\": " + employeeID + ",\n" +
-                        "\t\t\"OperatorID\": " + employeeID + "\n" +
-                        "\t}\n" +
-                        "}")
-                .body();
-
-        return new HttpEntity<>(result);
-    }
-
-    private HttpEntity<String> checkInOld() {
-        int precision = new SecureRandom().nextInt(30) + 1;
-        int distance = new SecureRandom().nextInt(250) + 1;
-        String address = Util.getRandomAddress(false) + " (精确到" + precision + ".00米) 距离考勤点" + distance + "米";
-
-        String result = HttpRequest.post(HOST + "/AttendanceService/AttendanceCheckIn")
-                .headers(Util.getHeaders())
-                .send("{\n" +
-                        "\t\"attendanceCheckInInputValue\": {\n" +
-                        "\t\t\"Address\": \"" + address + "\",\n" +
-                        "\t\t\"AttendancePointAddressID\": " + attendancePointAddressID + ",\n" +
-                        "\t\t\"Description\": \"\",\n" +
-                        "\t\t\"Distance\": 1,\n" +
-                        "\t\t\"Latitude\": 0,\n" +
-                        "\t\t\"Longtitude\": 0,\n" +
-                        "\t\t\"Number\": 1,\n" +
-                        "\t\t\"CompanyID\": " + companyID + ",\n" +
-                        "\t\t\"EmployeeID\": " + employeeID + ",\n" +
-                        "\t\t\"OperatorID\": " + employeeID + "\n" +
-                        "\t}\n" +
-                        "}")
-                .body();
-
-        return new HttpEntity<>(result);
-    }
-
-    // ==================   新的接口  ========================
-
     private HttpEntity<String> checkOutNew() {
         Pair<String, String> randomAndToken = Util.getAPIRandomAndToken();
-        String address = Util.getRandomAddress(true);
+        String address = Util.getRandomAddress();
         Pair<String, String> location = Util.getLocation(address);
+
+        address += (" (精确到" + Util.getRandomAccuracy() + ".00米)");
 
         String result = HttpRequest.post(HOST + "/AttendanceService/AttendanceCheckOutWithPhotoKeys")
                 .headers(Util.getHeaders())
@@ -140,8 +78,10 @@ public class MainResource {
 
     private HttpEntity<String> checkInNew() {
         Pair<String, String> randomAndToken = Util.getAPIRandomAndToken();
-        String address = Util.getRandomAddress(true);
+        String address = Util.getRandomAddress();
         Pair<String, String> location = Util.getLocation(address);
+
+        address += (" (精确到" + Util.getRandomAccuracy() + ".00米)");
 
         String result = HttpRequest.post(HOST + "/AttendanceService/AttendanceCheckInWithPhotoKeys")
                 .headers(Util.getHeaders())
@@ -170,9 +110,10 @@ public class MainResource {
 
     private HttpEntity<String> test() {
         Pair<String, String> randomAndToken = Util.getAPIRandomAndToken();
-        String address = Util.getRandomAddress(true);
+        String address = Util.getRandomAddress();
         Pair<String, String> location = Util.getLocation(address);
 
+        address += (" (精确到" + Util.getRandomAccuracy() + ".00米)");
 
         String result = "{'randomAndToken':" + randomAndToken + ",'address':" + address + ",'location':" + location + "}";
         return new HttpEntity<>(result);

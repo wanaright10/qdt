@@ -14,7 +14,6 @@ import java.util.Map;
 public final class Util {
     private static Map<String, String> headers = initHeaders();
     private static final List<String> addressPoolOld = Arrays.asList("天华二路201号附近", "天华二路181号附近", "世纪城南路附近", "天府软件园D区D2楼附近");
-    private static final List<String> addressPoolNew = Arrays.asList("四川省成都市武侯区天华二路201号", "四川省成都市武侯区天华二路181号", "四川省成都市武侯区世纪城南路", "四川省成都市武侯区天府软件园D区D2楼");
     private static Map<String, String> randomAndToken = initRandomAndToken();
     private static Map<String, Pair<String, String>> location = initLocation();
 
@@ -24,10 +23,11 @@ public final class Util {
 
     private static Map<String, Pair<String, String>> initLocation() {
         location = new HashMap<>();
-        location.put(addressPoolNew.get(0), new Pair<>("3.0542350253572105E7", "1.0407342196834784E8"));
-        location.put(addressPoolNew.get(1), new Pair<>("3.0542442653572105E7", "1.0407300353834784E8"));
-        location.put(addressPoolNew.get(2), new Pair<>("3.0541435463572105E7", "1.0407341123834784E8"));
-        location.put(addressPoolNew.get(3), new Pair<>("3.0540308143572105E7", "1.0407463431834784E8"));
+
+        location.put(addressPoolOld.get(0), new Pair<>("3.0545350253572105E7", "1.0408342196834784E8"));
+        location.put(addressPoolOld.get(1), new Pair<>("3.0545442653572105E7", "1.0408300353834784E8"));
+        location.put(addressPoolOld.get(2), new Pair<>("3.0544435463572105E7", "1.0408341123834784E8"));
+        location.put(addressPoolOld.get(3), new Pair<>("3.0543308143572105E7", "1.0408463431834784E8"));
         return location;
     }
 
@@ -56,19 +56,16 @@ public final class Util {
         return headers;
     }
 
-    public static String getRandomAddress(boolean isNew) {
+    public static String getRandomAddress() {
         SecureRandom random = new SecureRandom();
-        List<String> addressPool;
-        if (isNew) {
-            addressPool = addressPoolNew;
-        } else {
-            addressPool = addressPoolOld;
-        }
-        return addressPool.get(random.nextInt(addressPool.size()));
+        return addressPoolOld.get(random.nextInt(addressPoolOld.size()));
     }
 
     public static int getRandomDistance() {
         return new SecureRandom().nextInt(250) + 1;
+    }
+    public static int getRandomAccuracy() {
+        return new SecureRandom().nextInt(30) + 1;
     }
 
     public static Pair<String, String> getAPIRandomAndToken() {
