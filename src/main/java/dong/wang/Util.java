@@ -9,7 +9,7 @@ import java.util.*;
  */
 public final class Util {
     private static Map<String, String> headers = initHeaders();
-    private static final List<String> addressPoolOld = Arrays.asList("天华二路201号附近", "天华二路181号附近", "世纪城南路附近", "天府软件园D区D2楼附近");
+    private static final List<String> addressPoolOld = Arrays.asList("四川省成都市武侯区世纪城南路靠近英郡南区");
     private static Map<String, String> randomAndToken = initRandomAndToken();
     private static Map<String, Pair<String, String>> location = initLocation();
 
@@ -58,10 +58,10 @@ public final class Util {
     }
 
     public static int getRandomDistance() {
-        return new SecureRandom().nextInt(250) + 1;
+        return 200 + new SecureRandom().nextInt(200);
     }
     public static int getRandomAccuracy() {
-        return new SecureRandom().nextInt(30) + 1;
+        return 65;
     }
 
     public static Pair<String, String> getAPIRandomAndToken() {
