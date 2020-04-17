@@ -47,7 +47,7 @@ public class MainResource {
         String address = Util.getRandomAddress();
         Pair<String, String> location = Util.getLocation(address);
 
-        address += (" 精确到" + Util.getRandomAccuracy() + "米");
+        address += ("精确到" + Util.getRandomAccuracy() + "米");
 
         String result = HttpRequest.post(HOST + "/AttendanceService/AttendanceCheckOutWithPhotoKeys")
                 .headers(Util.getHeaders())
@@ -79,7 +79,7 @@ public class MainResource {
         String address = Util.getRandomAddress();
         Pair<String, String> location = Util.getLocation(address);
 
-        address += (" (精确到" + Util.getRandomAccuracy() + ".00米)");
+        address += ("精确到" + Util.getRandomAccuracy() + "米");
 
         String result = HttpRequest.post(HOST + "/AttendanceService/AttendanceCheckInWithPhotoKeys")
                 .headers(Util.getHeaders())
@@ -111,9 +111,9 @@ public class MainResource {
         String address = Util.getRandomAddress();
         Pair<String, String> location = Util.getLocation(address);
 
-        address += (" (精确到" + Util.getRandomAccuracy() + ".00米)");
+        address += ("精确到" + Util.getRandomAccuracy() + "米");
 
-        String result = "{'randomAndToken':" + randomAndToken + ",'address':" + address + ",'location':" + location + "}";
+        String result = "{'randomAndToken':" + randomAndToken + ",'address':" + address + ",'location':" + location + ",'distance':" + Util.getRandomDistance() + "}";
         return new HttpEntity<>(result);
     }
 }

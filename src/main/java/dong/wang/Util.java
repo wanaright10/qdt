@@ -9,7 +9,7 @@ import java.util.*;
  */
 public final class Util {
     private static Map<String, String> headers = initHeaders();
-    private static final List<String> addressPoolOld = Arrays.asList("四川省成都市武侯区世纪城南路靠近英郡南区");
+    private static final List<String> addressPoolOld = Collections.singletonList("四川省成都市武侯区世纪城南路靠近英郡南区");
     private static Map<String, String> randomAndToken = initRandomAndToken();
     private static Map<String, Pair<String, String>> location = initLocation();
 
@@ -21,9 +21,6 @@ public final class Util {
         location = new HashMap<>();
 
         location.put(addressPoolOld.get(0), new Pair<>("3.0547350253572105E7", "1.0408142196834784E8"));
-        location.put(addressPoolOld.get(1), new Pair<>("3.0546442653572105E7", "1.0408100353834784E8"));
-        location.put(addressPoolOld.get(2), new Pair<>("3.0545435463572105E7", "1.0408141123834784E8"));
-        location.put(addressPoolOld.get(3), new Pair<>("3.0544308143572105E7", "1.0408263431834784E8"));
         return location;
     }
 
