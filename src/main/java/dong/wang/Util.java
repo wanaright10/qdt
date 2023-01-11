@@ -26,11 +26,12 @@ public final class Util {
 
     private static Map<String, String> initRandomAndToken() {
         randomAndToken = new HashMap<>();
-        randomAndToken.put("wVTI50", "B9B6CA567A3D9C0FAC693137E7C5F27E");
-        randomAndToken.put("eYAtCY", "F71E4805FA3A3023C6B864DD56AD23B8");
-        randomAndToken.put("83hyU5", "4039606CC0D2DE48C017A8267C5D01D3");
-        randomAndToken.put("2619s3", "62625E620E27034D30A8DB09FA95A71D");
-        randomAndToken.put("eYAtCY", "F71E4805FA3A3023C6B864DD56AD23B8");
+        randomAndToken.put("k5fHif", "AE973620F45085658EEE828E9EEB6E74");
+        randomAndToken.put("0GZ4Wk", "12A7330185C2A1D155D0093A9FDD9AB7");
+        randomAndToken.put("9RmZIA", "7C069874F69F726503EB7EF0AD870424");
+        randomAndToken.put("z64bAa", "061BAF614AD82E3E4EEB60AB361ECC96");
+        randomAndToken.put("pszpRc", "D35DC139C1A1C28CBF1326BCCFCD7923");
+        randomAndToken.put("XwsRLX", "66F5426A5A54C2E9BC86089AAE183F40");
         return randomAndToken;
     }
 
