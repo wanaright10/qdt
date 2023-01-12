@@ -32,6 +32,20 @@
                 }
             });
         }
+
+        function login() {
+            var url = "/check/login?";
+            if ($('#test').is(':checked')) {
+                url = (url + 'test=true');
+            }
+            $.ajax({
+                url: url,
+                type: "get",
+                success: function (data) {
+                    $("#result").html(data);
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -44,6 +58,9 @@
 </p>
 <p style="text-align: center;width: 100%">
     <button style="width: 50%;height: 80px;font-size: large" onclick="offWork()">结束</button>
+</p>
+<p style="text-align: center;width: 100%">
+    <button style="width: 50%;height: 80px;font-size: large" onclick="login()">重新登陆</button>
 </p>
 <hr/>
 <div style="text-align: center;width: 100%" id="result"></div>
