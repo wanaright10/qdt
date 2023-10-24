@@ -20,7 +20,7 @@ services:
       - "443:443"
     volumes:
       - /root/don/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - /root/don/conf/nginx/conf/conf.d:/etc/nginx/conf.d
+      - /root/don/conf/nginx/conf.d:/etc/nginx/conf.d
       - /root/don/conf/nginx/logs:/var/log/nginx
     restart: always
     depends_on:
