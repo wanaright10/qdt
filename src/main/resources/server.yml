@@ -4,7 +4,7 @@ services:
   wordpress:
     image: wordpress
     ports:
-      - "8080:80"
+      - "8020:80"
     volumes:
       - /root/don/data/wordpress:/var/www/html
     environment:
