@@ -8,11 +8,13 @@ services:
     volumes:
       - /root/don/data/wordpress:/var/www/html
     environment:
-      - WORDPRESS_DB_HOST=mysql
-      - WORDPRESS_DB_USER=root
-      - WORDPRESS_DB_PASSWORD=password
+      - WORDPRESS_DB_HOST=mysql:3306
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress123
       - WORDPRESS_DB_NAME=wordpress
     restart: always
+    depends_on:
+      - mysql
   nginx:
     image: nginx
     ports:
@@ -22,6 +24,7 @@ services:
       - /root/don/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
       - /root/don/conf/nginx/conf.d:/etc/nginx/conf.d
       - /root/don/conf/nginx/logs:/var/log/nginx
+      - /root/don/conf/nginx/ssl:/etc/nginx/ssl
     restart: always
     depends_on:
       - wordpress
@@ -33,11 +36,17 @@ services:
     restart: always
   mysql:
     image: mysql
+    command:
+      - --default_authentication_plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=mysqlpassword123
       - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=password
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress123
     volumes:
       - /root/don/data/mysql:/var/lib/mysql
     restart: always
