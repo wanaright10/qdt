@@ -20,7 +20,7 @@ public final class Util {
     private static Map<String, Pair<String, String>> initLocation() {
         location = new HashMap<>();
 
-        location.put(addressPoolOld.get(0), new Pair<>("3.0547350253572105E7", "1.0408142196834784E8"));
+        location.put(addressPoolOld.get(0), new Pair<>("3.0537350253572105E7", "1.0407342196834784E8"));
         return location;
     }
 
